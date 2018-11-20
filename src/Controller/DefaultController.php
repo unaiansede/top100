@@ -55,13 +55,13 @@ class DefaultController extends AbstractController
 
         // Aqui se cargan los diferentes generos disponibles
         $generos = [
-            ['genero' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
-            ['genero' => 'Country', 'img' =>'images/genero-country.jpg'],
-            ['genero' => 'EDM', 'img' =>'images/genero-edm.jpg'],
-            ['genero' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
-            ['genero' => 'Punk', 'img' =>'images/genero-punk.jpg'],
-            ['genero' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
-            ['genero' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
+            ['nombre' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
+            ['nombre' => 'Country', 'img' =>'images/genero-country.jpg'],
+            ['nombre' => 'EDM', 'img' =>'images/genero-edm.jpg'],
+            ['nombre' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
+            ['nombre' => 'Punk', 'img' =>'images/genero-punk.jpg'],
+            ['nombre' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
+            ['nombre' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
         ];
 
         return $this->render('generos/generos.html.twig', [
@@ -75,7 +75,10 @@ class DefaultController extends AbstractController
 
     public function generosSeleccion($slug)
     {
-        return $this->render('generos/generos.html.twig');
+        return $this->render('generos/generosSeleccion.html.twig', [
+            'slug' => $slug,
+            'img' => 'images/genero-' . str_replace(' ', '-',strtolower($slug)) . '.jpg',
+        ]);
     }
 
 
