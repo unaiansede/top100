@@ -46,5 +46,38 @@ class DefaultController extends AbstractController
 
     }
 
+    /**
+     * @Route("/generos", name="generos_index")
+     */
+
+    public function generos()
+    {
+
+        // Aqui se cargan los diferentes generos disponibles
+        $generos = [
+            ['genero' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
+            ['genero' => 'Country', 'img' =>'images/genero-country.jpg'],
+            ['genero' => 'EDM', 'img' =>'images/genero-edm.jpg'],
+            ['genero' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
+            ['genero' => 'Punk', 'img' =>'images/genero-punk.jpg'],
+            ['genero' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
+            ['genero' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
+        ];
+
+        return $this->render('generos/generos.html.twig', [
+            'generos' => $generos,
+        ]);
+    }
+
+    /**
+     * @Route("/generos/{slug}", name="generos_seleccion")
+     */
+
+    public function generosSeleccion($slug)
+    {
+        return $this->render('generos/generos.html.twig');
+    }
+
+
 
 }
