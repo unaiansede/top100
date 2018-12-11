@@ -75,10 +75,42 @@ class DefaultController extends AbstractController
 
     public function generosSeleccion($slug)
     {
+        $canciones = [
+            ['nombre' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
+            ['nombre' => 'Country', 'img' =>'images/genero-country.jpg'],
+            ['nombre' => 'EDM', 'img' =>'images/genero-edm.jpg'],
+            ['nombre' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
+            ['nombre' => 'Punk', 'img' =>'images/genero-punk.jpg'],
+            ['nombre' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
+            ['nombre' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
+        ];
         return $this->render('generos/generosSeleccion.html.twig', [
             'slug' => $slug,
             'img' => 'images/genero-' . str_replace(' ', '-',strtolower($slug)) . '.jpg',
+            'canciones'=>$canciones,
         ]);
+    }
+    /**
+     * @Route("/cancion/{slug}", name="cancion_seleccion")
+     */
+    public function cancion($slug)
+    {
+        $cancion = [
+            ['nombre' => 'pepe','img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'b' ,'img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'c' ,'img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'd' ,'img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'e' ,'img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'f' ,'img'=>'images/genero-punk.jpg'],
+            ['nombre' => 'g' ,'img'=>'images/genero-punk.jpg'],
+
+        ];
+        return $this->render('generos/generosSeleccion.html.twig', [
+            'slug' => $slug,
+            'img' => 'images/genero-punk.jpg' /*. str_replace(' ', '-',strtolower($slug)) . '.jpg'*/,
+            'canciones'=>$cancion,
+        ]);
+
     }
 
 

@@ -28,6 +28,20 @@
                             <p class="share-icons mb-5"><span class="pr-1">Share:</span> <i class="pr-1 fa fa-facebook-square"></i><i class="pr-1 fa fa-twitter-square"></i><i class="pr-1 fa fa-reddit-square"></i><i class="pr-1 fa fa-share-alt-square"></i></p>
                         </div>
                     </div>
+                    <div class="article-container my-1">
+                        {% for cancion in canciones %}
+                        <a href="{{ path('cancion_seleccion', {'slug': cancion.nombre}) }}">
+                            <div class="article-title d-inline-block pl-3 align-middle">
+                                <span>{{ cancion.nombre }}</span>
+                                <br>
+                                <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}"> Mike Ferengi </span>
+                                <span class="pl-5 article-details float-right"> 3 hours ago</span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <h3><i class="pr-3 fa fa-comment"></i>Comments</h3>
