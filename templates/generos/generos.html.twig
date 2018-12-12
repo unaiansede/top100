@@ -1,59 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'lista.html.twig' %}
 
-{% block body %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-
-                <!-- Genero 1-->
-                {% for genero in generos %}
-                    <a href="{{ path('generos_seleccion', {'slug': genero.id_genero}) }}">
-                        <div class="show-article-container p-3 mt-4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <img class="show-article-img" src="{{ asset(genero.img_genero) }}">
-                                    <div class="show-article-title-container d-inline-block pl-3 align-middle">
-                                        <span class="titulo-genero ">{{ genero.nom_genero }}</span>
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="article-text">
-                                        {#<p>Descripción del género</p>#}
-                                    </div>
-                                </div>
-                            </div>
+    {% block items %}
+    {% for genero in generos %}
+        <a href="{{ path('generos_seleccion', {'slug': genero.id_genero}) }}">
+            <div class="show-article-container p-3 mt-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="show-article-img" src="{{ asset(genero.img_genero) }}">
+                        <div class="show-article-title-container d-inline-block pl-3 align-middle">
+                            <span class="titulo-genero ">{{ genero.nom_genero }}</span>
+                            </span>
                         </div>
-                    </a>
-                {% endfor %}
-
-
-            </div>
-
-            <!-- Barra derecha de generos populares -->
-
-
-            <div class="col-sm-12 col-md-4 text-center">
-
-                <div class="quote-space pb-2 pt-2 px-5">
-                    <h3 class="text-center pb-3">Géneros populares</h3>
-                    <p><a href="https://en.wikipedia.org/wiki/Wernher_von_Braun">EDM</a></p>
-
-                    <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Aaron_Cohen_(Deputy_NASA_administrator)">Hard Rock</a></p>
-
-                    <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Christa_McAuliffe">Xilofono</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="article-text">
+                            {#<p>Descripción del género</p>#}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </a>
+    {% endfor %}
+    {% endblock %}
 
-{% endblock %}
+    {% block barra %}
+    <h3 class="text-center pb-3">Géneros populares</h3>
+    <p><a href="https://en.wikipedia.org/wiki/Wernher_von_Braun">EDM</a></p>
 
-{% block javascripts %}
-    {{ parent() }}
+    <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Aaron_Cohen_(Deputy_NASA_administrator)">Hard Rock</a></p>
 
-    <script src="{{ asset('js/index_show.js') }}"></script>
-{% endblock %}
+    <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Christa_McAuliffe">Xilofono</a>
+    {% endblock %}
+
+

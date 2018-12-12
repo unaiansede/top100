@@ -1,0 +1,38 @@
+{% extends 'lista.html.twig' %}
+
+        {% block items %}
+        {% for artista in artistas %}
+            <a href="{{ path('artistas_seleccion', {'slug': artista.id_cant}) }}">
+                <div class="show-article-container p-3 mt-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="show-article-title-container d-inline-block pl-3 align-middle">
+                                <span class="titulo-genero ">{{ artista.nom_cant }}</span>
+                                <span class="show-article-title">{{ artista.debut }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <div class="article-text">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        {% endblock %}
+
+
+        {% block barra %}
+        <h3 class="text-center pb-3">Artistas populares</h3>
+        <p><a href="https://en.wikipedia.org/wiki/Wernher_von_Braun">Taylor Swift</a></p>
+
+        <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Aaron_Cohen_(Deputy_NASA_administrator)">Ariana Grande</a></p>
+
+        <p class="pt-4"><a href="https://en.wikipedia.org/wiki/Christa_McAuliffe">Desakato</a>
+        {% endblock %}

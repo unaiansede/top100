@@ -1,0 +1,24 @@
+{% extends 'seleccion.html.twig' %}
+
+{% block title %}{{ artista[0].nom_cant }}{% endblock %}
+
+
+    {% block jsonld %}
+        <script type="application/ld+json">
+                    {
+                        "@context":"http://schema.org",
+
+                    }
+     </script>
+    {% endblock %}
+
+    {% block srcImagen %}{% endblock %}
+
+    {% block titulo %}{{ artista[0].nom_cant }}{% endblock %}
+
+    {% block tweetTexto %}Me encanta  {{ artista[0].nom_cant }}! ¿Y a ti?{% endblock %}
+
+    {% block tweetHashtags %}{{ artista[0].nom_cant|replace({' ': ''}) }}{% endblock %}
+
+{% block descripcion %}{% endblock %}
+

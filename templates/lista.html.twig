@@ -1,0 +1,28 @@
+
+    {# Template generico para lista, tales como generos y artistas #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+
+                <!-- Items a listar-->
+                {% block items %}{% endblock %}
+
+            </div>
+
+            <!-- Barra derecha de generos populares -->
+
+            <div class="col-sm-12 col-md-4 text-center">
+
+                <div class="quote-space pb-2 pt-2 px-5">
+                    {% block barra %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

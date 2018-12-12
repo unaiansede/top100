@@ -23,7 +23,7 @@ class database
         return $conn;
     }
 
-    public static function selectCanciones($id_genero){
+    public static function selectCancionesByGenero($id_genero){
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -44,6 +44,33 @@ class database
             catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+
+        $conn = null;
+        echo "</table>";
+        return $result;
+    }
+
+    public static function selectCancionesByCant($id_cant){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "top100";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, "");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT cancion.id_cancion, cancion.nom_cancion, cancion.duracion, cancion.link_reprod, cancion.fecha_creac, cancion.posicion, genero.nom_genero, genero.img_genero, cantante.nom_cant
+                                                  FROM cancion 
+                                                  INNER JOIN genero ON genero.id_genero = cancion.id_genero
+                                                  INNER JOIN cantante ON cantante.id_cant = cancion.id_cant
+                                                  WHERE cancion.id_cant = $id_cant");
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
 
         $conn = null;
         echo "</table>";
@@ -127,7 +154,30 @@ class database
         return $result;
     }
 
-    public static function selecGen(){
+    public static function selectCantById($id_cant){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "top100";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, "");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT * FROM cantante WHERE id_cant = $id_cant");
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        $conn = null;
+        echo "</table>";
+        return $result;
+    }
+
+    public static function selectGen(){
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -145,6 +195,30 @@ class database
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+
+        $conn = null;
+        echo "</table>";
+        return $result;
+    }
+
+    public static function selectGenById($id_genero){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "top100";
+
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, "");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT * FROM genero WHERE id_genero = $id_genero");
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
 
         $conn = null;
         echo "</table>";

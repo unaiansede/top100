@@ -55,7 +55,7 @@ class DefaultController extends AbstractController
 
         // Aqui se cargan los diferentes generos disponibles
 
-        $generos = database::selecGen();
+        $generos = database::selectGen();
 
         return $this->render('generos/generos.html.twig', [
             'generos' => $generos,
@@ -69,11 +69,13 @@ class DefaultController extends AbstractController
     public function generosSeleccion($slug)
     {
 
-        $canciones = database::selectCanciones($slug);
+        $canciones = database::selectCancionesByGenero($slug);
+        $genero = database::selectGenById($slug);
 
         return $this->render('generos/generosSeleccion.html.twig', [
             'slug' => $slug,
             'canciones'=>$canciones,
+            'genero'=>$genero,
         ]);
     }
     /**
@@ -99,6 +101,39 @@ class DefaultController extends AbstractController
             'canciones'=>$canciones,
         ]);
 
+    }
+
+    /**
+     * @Route("/artistas", name="artistas_index")
+     */
+
+    public function artistas()
+    {
+
+        // Aqui se cargan los diferentes generos disponibles
+
+        $artistas = database::selectCant();
+
+        return $this->render('artistas/artistas.html.twig', [
+            'artistas' => $artistas,
+        ]);
+    }
+
+    /**
+     * @Route("/artistas/{slug}", name="artistas_seleccion")
+     */
+
+    public function artistasSeleccion($slug)
+    {
+
+        $canciones = database::selectCancionesByCant($slug);
+        $artista = database::selectCantById($slug);
+
+        return $this->render('artistas/artistasSeleccion.html.twig', [
+            'slug' => $slug,
+            'canciones'=>$canciones,
+            'artista'=>$artista,
+        ]);
     }
 
 }
