@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\database;
 
 class DefaultController extends AbstractController
 {
@@ -26,7 +27,6 @@ class DefaultController extends AbstractController
             'si eee jeje',
         ];
 
-        //dump($slug,$this);
 
         return $this->render('default/show.html.twig', [
             'title' => ucwords(str_replace('-', ' ', $slug)),
@@ -54,15 +54,8 @@ class DefaultController extends AbstractController
     {
 
         // Aqui se cargan los diferentes generos disponibles
-        $generos = [
-            ['nombre' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
-            ['nombre' => 'Country', 'img' =>'images/genero-country.jpg'],
-            ['nombre' => 'EDM', 'img' =>'images/genero-edm.jpg'],
-            ['nombre' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
-            ['nombre' => 'Punk', 'img' =>'images/genero-punk.jpg'],
-            ['nombre' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
-            ['nombre' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
-        ];
+
+        $generos = database::selecGen();
 
         return $this->render('generos/generos.html.twig', [
             'generos' => $generos,
@@ -75,44 +68,37 @@ class DefaultController extends AbstractController
 
     public function generosSeleccion($slug)
     {
-        $canciones = [
-            ['nombre' => 'Big Band', 'img' =>'images/genero-big-band.jpg'],
-            ['nombre' => 'Country', 'img' =>'images/genero-country.jpg'],
-            ['nombre' => 'EDM', 'img' =>'images/genero-edm.jpg'],
-            ['nombre' => 'Hard Rock', 'img' =>'images/genero-hard-rock.jpg'],
-            ['nombre' => 'Punk', 'img' =>'images/genero-punk.jpg'],
-            ['nombre' => 'Solitario', 'img' =>'images/genero-solitario.jpg'],
-            ['nombre' => 'Xilofono', 'img' =>'images/genero-xilofono.jpg'],
-        ];
+
+        $canciones = database::selectCanciones($slug);
+
         return $this->render('generos/generosSeleccion.html.twig', [
             'slug' => $slug,
-            'img' => 'images/genero-' . str_replace(' ', '-',strtolower($slug)) . '.jpg',
             'canciones'=>$canciones,
         ]);
     }
     /**
-     * @Route("/cancion/{slug}", name="cancion_seleccion")
-     */
+ * @Route("/cancion/{slug}", name="cancion_seleccion")
+ */
     public function cancion($slug)
     {
-        $cancion = [
-            ['nombre' => 'pepe','img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'b' ,'img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'c' ,'img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'd' ,'img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'e' ,'img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'f' ,'img'=>'images/genero-punk.jpg'],
-            ['nombre' => 'g' ,'img'=>'images/genero-punk.jpg'],
-
-        ];
-        return $this->render('generos/generosSeleccion.html.twig', [
+        $cancion = database::selectCancion($slug);
+        return $this->render('default/cancion.html.twig', [
             'slug' => $slug,
-            'img' => 'images/genero-punk.jpg' /*. str_replace(' ', '-',strtolower($slug)) . '.jpg'*/,
-            'canciones'=>$cancion,
+            'cancion'=>$cancion,
         ]);
 
     }
 
+    /**
+     * @Route("/top", name="top_index")
+     */
+    public function top()
+    {
+        $canciones = database::selectCancionesTodas();
+        return $this->render('default/top.html.twig', [
+            'canciones'=>$canciones,
+        ]);
 
+    }
 
 }

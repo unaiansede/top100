@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Top{% endblock %}
+
+{% block body %}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.2';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script type="application/ld+json">
+                    {
+                        "@context":"http://schema.org",
+                        "@type": "MusicPlaylist",
+                        "name": "{{ canciones[0].nom_genero }}",
+                        "numTracks": "{{ canciones|length }},
+                        "track": [
+                        {% for cancion in canciones %}
+                        {
+                            "@type": "MusicRecording",
+                            "name": "{{ cancion.nom_cancion }}"
+                        }
+                        ,
+                        {% endfor %}
+                        ]
+                    }
+                </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="show-article-container p-3 mt-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="show-article-img" src="{{ asset(canciones[0].img_genero) }}">
+                            <div class="show-article-title-container d-inline-block pl-3 align-middle">
+                                <span class="show-article-title ">Canción Nº1: {{ canciones[0].nom_cancion }}</span>
+                                <br>
+                                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Me encanta la música {{ canciones[0].nom_genero }}! ¿Y a ti?" data-hashtags="{{ canciones[0].nom_genero|replace({' ': ''}) }}" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                <div class="fb-share-button" data-href="{{ path(app.request.attributes.get('_route'),
+                                    app.request.attributes.get('_route_params')) }}" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+                                <span class="pl-2 article-details"> 3 hours ago</span>
+                                <span class="pl-2 article-details">
+                                <span class="js-like-index-count">5</span>
+                                <a href="#" class="fa fa-heart-o like-index js-like-index"></a>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="share-icons mb-5"></p>
+                        </div>
+                    </div>
+                    <div class="article-container my-1">
+
+                    </div>
+
+                </div>
+                {% for cancion in canciones %}
+
+
+                    <div class="article-container my-1">
+                        <a href="{{ path('cancion_seleccion', {'slug': cancion.id_cancion}) }}">
+                            <img class="article-img"  src="{{ asset(cancion.img_genero) }}">
+                            <div class="article-title d-inline-block pl-3 align-middle">
+                                <span>{{ cancion.nom_cancion }} <br> {{ cancion.nom_cant }}</span>
+                                <br>
+                                <span class="pl-5 article-details float-right"> Fecha: {{ cancion.fecha_creac }}</span>
+                                <span class="pl-5 article-details float-right"> Ranking: {{ cancion.posicion }}</span>
+                            </div>
+                        </a>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/index_show.js') }}"></script>
+{% endblock %}
